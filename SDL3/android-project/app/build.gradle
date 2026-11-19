@@ -1,0 +1,49 @@
+plugins {
+     id 'com.android.application'
+}
+
+android {
+    namespace = "org.libsdl.app"
+    compileSdkVersion 34
+    ndkVersion = "26.3.11579264"
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 34
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters 'arm64-v8a'
+        }
+    }
+    sourceSets.main {
+        jniLibs.srcDir 'libs'
+    }
+    signingConfigs {
+        release {
+            storeFile file('../lotd-release.keystore')
+            storePassword 'lotdandroid'
+            keyAlias 'lotd'
+            keyPassword 'lotdandroid'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+        }
+    }
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+}

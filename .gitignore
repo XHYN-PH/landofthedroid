@@ -1,0 +1,56 @@
+# Build artifacts and caches
+build_android/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.ninja
+.ninja_*
+
+# Android Gradle build outputs and caches
+.gradle/
+**/build/
+SDL3/android-project/.gradle/
+SDL3/android-project/build/
+SDL3/android-project/app/build/
+SDL3/android-project/local.properties
+.cxx/
+
+# Python virtual environments and caches
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary backups and archives
+*.orig
+*.bak
+*~
+*.swp
+ucc_env_DOTZMenu_src.tar.gz
+
+# ucc_env host-specific symlinks to user download folders
+ucc_env/Animations
+ucc_env/Audio
+ucc_env/Cinematics
+ucc_env/Help
+ucc_env/KarmaData
+ucc_env/Levels
+ucc_env/Meshes
+ucc_env/Saves
+ucc_env/Textures
+ucc_env/System/*.dll
+ucc_env/System/*.exe
+ucc_env/System/*.u.orig
+ucc_env/System/*.log
+ucc_env/System/*.int
+ucc_env/System/*.ini
+!ucc_env/System/make.ini
+!ucc_env/System/ucc.ini
+ucc_env/System/*.u
+!ucc_env/System/BBGui.u
+ucc_env/System/*.md5
+
+# OS generated files
+.DS_Store
+Thumbs.db

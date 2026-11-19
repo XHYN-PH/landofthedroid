@@ -1,0 +1,22 @@
+/*****************************************************************
+ * HGWeaponPickUp -
+ *
+ * @version $1.0$
+ * @author  Jesse (Jesse@digitalextremes.com)
+ * @date    Jan 2004
+ *****************************************************************
+ */
+class DOTZGrenadePickup extends AdvancedGrenadePickup;
+
+
+//===========================================================================
+// DefaultProperties
+//===========================================================================
+
+defaultproperties
+{
+     RespawnTime=60.000000
+     RespawnEffectTime=0.000000
+     PickupSound=Sound'DOTZXInterface.PickupWeapon'
+     iActionablePriority=6
+}

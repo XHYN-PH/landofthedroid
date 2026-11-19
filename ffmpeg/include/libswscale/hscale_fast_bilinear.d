@@ -1,0 +1,15 @@
+libswscale/hscale_fast_bilinear.o: libswscale/hscale_fast_bilinear.c \
+  libswscale/swscale_internal.h config.h libswscale/swscale.h \
+  libavutil/avutil.h libavutil/common.h libavutil/attributes.h \
+  libavutil/error.h libavutil/macros.h libavutil/avconfig.h \
+  libavutil/version.h libavutil/intmath.h libavutil/internal.h \
+  libavutil/mathematics.h libavutil/rational.h libavutil/intfloat.h \
+  compat/android/math.h libavutil/log.h libavutil/pixfmt.h \
+  libavutil/frame.h libavutil/buffer.h libavutil/channel_layout.h \
+  libavutil/dict.h libavutil/samplefmt.h libswscale/version_major.h \
+  libswscale/graph.h libavutil/slicethread.h libswscale/format.h \
+  libavutil/csp.h libavutil/pixdesc.h libswscale/lut3d.h \
+  libswscale/cms.h libswscale/csputils.h libavutil/avassert.h \
+  libavutil/framepool.h libavutil/intreadwrite.h libavutil/bswap.h \
+  libavutil/aarch64/intreadwrite.h libavutil/mem_internal.h \
+  libavutil/refstruct.h libavutil/half2float.h
