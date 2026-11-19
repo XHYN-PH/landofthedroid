@@ -3,7 +3,7 @@ build_android/
 CMakeCache.txt
 CMakeFiles/
 cmake_install.cmake
-Makefile
+/Makefile
 *.ninja
 .ninja_*
 
