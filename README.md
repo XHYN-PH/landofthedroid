@@ -1,63 +1,122 @@
-# LandOfTheDroid
+<p align="center">
+  <img src="icon.png" width="160" alt="LandOfTheDroid Icon" />
+</p>
 
-Native Android port of *Land of the Dead: Road to Fiddler's Green* (Unreal Engine 2).
+<h1 align="center">LandOfTheDroid</h1>
+
+<p align="center">
+  <strong>Native 64-bit ARM Android Port of <em>Land of the Dead: Road to Fiddler's Green</em> (Unreal Engine 2)</strong>
+</p>
+
+---
 
 ## Overview
 
-LandOfTheDroid brings the classic 2005 survival horror FPS *Land of the Dead: Road to Fiddler's Green* to modern Android devices. Built using native 64-bit ARM compilation (`arm64-v8a`), modern SDL3 runtime, `sdl2-compat`, and FFmpeg cutscene decoding.
+**LandOfTheDroid** is a native, source-level port of the classic 2005 survival horror FPS *Land of the Dead: Road to Fiddler's Green* for modern Android devices. 
 
-## Features
+Rather than relying on emulation or translation layers like Wine, Box64, or mobox, LandOfTheDroid runs natively on 64-bit ARM processors (`arm64-v8a`). It executes statically recompiled engine and gameplay bytecode coupled with an OpenGL ES 3.0 rendering backend, modern SDL3 runtime, embedded FFmpeg cutscene decoding, and an integrated mobile touch interface.
 
-- **Native ARM64 Execution**: High performance C recompilation core with GLES3 rendering backend.
-- **Custom Touch HUD**:
-  - Virtual movement stick with separated progressive sprint threshold to prevent accidental activation.
-  - Look and aim touch surface with smooth rotational panning.
-  - Responsive action buttons (Fire, Alt Fire, Jump, Crouch, Reload, Next Weapon, Prev Weapon, Flashlight, Kick/Kung Fu).
-  - Tahoma styled HUD typography and customizable layout positioning.
-- **In-Engine Settings Menu**:
-  - **Video**: Resolution selector (720p, 900p, 1080p), Gamma slider, Detail levels, Shadows, FXAA Anti-Aliasing (Off, Low, Medium, High, Ultra), Post-FX Color Grading (Normal, Romero Zombie Green, High Contrast Noir, Bleached Apocalypse, Warm Sunset), HDR/Bloom, real-time FOV slider (70-120), Target FPS cap (30, 60, 90, 120, Unlimited), AMD CAS Sharpening (FidelityFX), and True 4:3 Boxed Aspect Ratio mode.
-  - **Audio**: Dedicated sliders for Music and Sound Effects volume, Dual Rumble Haptic Feedback, and low-health muffled audio simulation.
-  - **Controls**: Full keybinding configurations, Look Sensitivity adjustment slider, and Invert Look toggle.
-  - **XHYN Settings**: On-screen Touch Controls Layout editor, Auto Sprint, and Auto-Pickup / Auto-Use proximity interaction.
-  - **Cheats Menu**: Direct in-engine toggles for God Mode, Loaded / All Weapons & Ammo, Kung Fu Fists, Kill All Zombies, Fly / Ghost / Walk mode, Slomo Bullet-Time, Behindview 3rd-person camera, Campaign Chapter Warps, and an integrated console terminal.
-- **Pause Menu Integration**: Cheats access button directly integrated into the single-player pause menu.
-- **Storage & Mod Support**: Built-in 1-tap custom map (.dz and .zip) extraction, save backup and restore manager, and servers browser.
+---
 
-## Requirements
+## Technical Architecture & Engineering
 
-- Android device running Android 7.0 (Nougat, API level 24) or higher.
-- 64-bit ARM processor (`arm64-v8a`).
-- Original PC game assets of *Land of the Dead: Road to Fiddler's Green*.
+### 1. Static Binary Recompilation Core
+The original Win32 x86 PE executable (`LOTD.exe`) and accompanying game DLLs (`Core.dll`, `Engine.dll`, `DOTZGame.u`, `DOTZWeapons.u`, `DOTZMenu.u`, `D3DDrv.dll`, `WinDrv.dll`, `ALAudio.dll`) were decompiled and statically recompiled into optimized C source code. This recompiled core executes natively on Android ARM64 CPU architectures without x86 emulation overhead.
 
-## Asset Installation
+### 2. Modern OpenGL ES 3.0 Rendering Pipeline
+The legacy DirectX 8 and DirectX 9 fixed-function and programmable pipeline has been ported to OpenGL ES 3.0:
+- **Dynamic Lighting & Shading**: Full per-pixel lighting, real-time dynamic light maps, projection decals, and skeletal vertex skinning.
+- **AMD FidelityFX CAS (Contrast Adaptive Sharpening)**: Integrated post-processing sharpening filter to enhance texture clarity at high mobile display resolutions.
+- **Anti-Aliasing (FXAA)**: Built-in FXAA shader supporting Low, Medium, High, and Ultra presets.
+- **Cinematic Color Grading**: Multiple post-FX grading presets including Standard Normal, Romero Zombie Green, High Contrast Noir, Bleached Apocalypse, and Warm Sunset.
+- **Aspect Ratio Control**: Native support for modern widescreen (Hor+ scaling) as well as authentic 4:3 Boxed pillarboxed mode.
+- **High Refresh Rate Support**: Target frame rate selection for 30 FPS, 60 FPS, 90 FPS, 120 FPS, and Unlimited.
 
-1. Install `LandOfTheDead-Android.apk` on your Android device.
-2. Grant Storage permission when requested by the launcher.
-3. Copy the game asset folders from your PC installation into `/sdcard/LandOfTheDead/` (or `/storage/emulated/0/LandOfTheDead/`):
-   - `Animations/`
-   - `Audio/`
-   - `Cinematics/`
-   - `Help/`
-   - `KarmaData/`
-   - `Levels/`
-   - `Meshes/`
-   - `Saves/`
-   - `System/`
-   - `Textures/`
-4. The APK comes pre-packaged with updated engine bytecode (`DOTZMenu.u`, `DOTZWeapons.u`, `DOTZEngine.u`) and fonts, which are verified and deployed into `System/` automatically upon launch.
-5. Launch the game from your app drawer and press **LAUNCH GAME**.
+### 3. Touch Interface & Input Subsystem
+- **Virtual Movement Joystick**: Dual-zone analog thumbstick featuring a separated, extended sprint pull-radius to eliminate accidental sprinting during close-quarters combat.
+- **Precision Aim Surface**: Low-latency camera panning with configurable look sensitivity sliders and invert-look toggles.
+- **Customizable HUD Layout**: Built-in visual Touch Controls Layout Editor accessible directly from the settings menu (`[ CONFIGURE TOUCH CONTROLS LAYOUT >> ]`).
+- **Physical Gamepad Support**: Plug-and-play support for Bluetooth and USB gamepads (Xbox Series/One, PlayStation DualShock/DualSense, standard Android HID).
+
+### 4. Audio & Cinematics Subsystem
+- **3D Positional Audio**: Environmental spatial sound rendered via OpenAL and streaming SDL3 audio backend.
+- **Hardware-Decoded Cutscenes**: Embedded FFmpeg library (`libavcodec`, `libavformat`, `libswscale`) delivering smooth, synchronized video playback for intros and level transitions.
+
+### 5. In-Engine Settings & Cheats Integration
+- **Fully Integrated Settings Tabs**: Video, Audio, Controls, and Mobile XHYN Settings built natively in UnrealScript.
+- **In-Engine Cheats Menu**: Direct toggles for God Mode, Loaded / All Weapons & Ammo, Kung Fu Fists, Kill All Zombies, Fly / Ghost / Walk mode, Slomo Bullet-Time, Behindview 3rd-person camera, and Campaign Chapter Warps.
+- **Pause Menu Access**: Cheats button placed directly inside the single-player pause menu below Quit.
+- **Quality of Life**: Proximity auto-pickup for weapons and items, smart empty-magazine auto-reload, and auto-save checkpoints.
+
+---
+
+## System Requirements
+
+| Specification | Minimum Requirement | Recommended Specification |
+| :--- | :--- | :--- |
+| **Operating System** | Android 7.0 (Nougat, API Level 24) | Android 10.0 or higher (API Level 29+) |
+| **Processor (CPU)** | 64-bit ARMv8-A Quad-Core (`arm64-v8a`) | 64-bit ARMv8.2-A+ Octa-Core (Snapdragon 7xx/8xx, Dimensity, Tensor) |
+| **RAM (Memory)** | **3 GB RAM** | **4 GB to 6 GB+ RAM** |
+| **Graphics (GPU)** | OpenGL ES 3.0 compatible (Adreno 505+, Mali-G71+, PowerVR GE8320+) | Adreno 6xx/7xx, Mali-G76/G78/G710+ (for 60-120 FPS & Ultra FX) |
+| **Storage Space** | **2.5 GB free internal storage** | High-speed UFS 2.1 / 3.0+ internal flash storage |
+| **Architecture** | 64-bit only (`arm64-v8a`) | 64-bit only (`arm64-v8a`) |
+
+> [!IMPORTANT]
+> **RAM Notice**: Unreal Engine 2 dynamic level streaming, skeletal mesh caches, and high-resolution texture banks require a minimum of 3 GB of total device RAM. Devices with 4 GB to 6 GB RAM or more will experience significantly smoother frame pacing and zero background low-memory killer (LMK) interruptions during dense zombie horde encounters.
+
+---
+
+## Asset Installation Guide
+
+This repository contains the game executable, native libraries, engine bytecode, and touch framework. Game data assets from the original PC retail release are required.
+
+### Required Directories
+
+From your legally acquired PC installation of *Land of the Dead: Road to Fiddler's Green*, locate the following 10 folders:
+1. `Animations/`
+2. `Audio/`
+3. `Cinematics/`
+4. `Help/`
+5. `KarmaData/`
+6. `Levels/`
+7. `Meshes/`
+8. `Saves/`
+9. `System/`
+10. `Textures/`
+
+### Installation Steps
+
+1. Download and install `LandOfTheDead-Android.apk` on your Android device (available on the [Releases](https://github.com/XHYN-PH/landofthedroid/releases) page).
+2. Launch the app once to grant Storage access permissions when prompted, then exit.
+3. Connect your Android device to your computer via USB (or use an Android file manager).
+4. Copy all 10 game asset folders directly into:
+   ```
+   /sdcard/LandOfTheDead/
+   ```
+   *(or `/storage/emulated/0/LandOfTheDead/`)*
+5. The launcher automatically provides updated engine packages (`DOTZMenu.u`, `DOTZWeapons.u`, `DOTZEngine.u`) and game fonts into `System/` upon launch.
+6. Open the app, select your preferred resolution, and tap **LAUNCH GAME**.
+
+---
+
+## Custom Maps & Mods
+
+- **1-Tap Map Installer**: Place custom community `.dz` or `.zip` map archives into your device's `Downloads/` directory and use the built-in installer inside the launcher or in-game drawer to extract them into `/sdcard/LandOfTheDead/Maps/`.
+- **Save Backup / Restore**: Backup your save games into timestamped `.zip` archives directly from the launcher utility tab.
+
+---
 
 ## Building from Source
 
 ### Prerequisites
 
 - Android NDK (r26b or newer)
-- Android SDK (API 34)
+- Android SDK (compileSdkVersion 34)
 - CMake 3.22+
 - JDK 17
 - Ninja or Make
 
-### 1. Compile Native Library (libmain.so)
+### 1. Compile Native Shared Library (`libmain.so`)
 
 ```bash
 mkdir -p build_android && cd build_android
@@ -70,21 +129,25 @@ cp libmain.so ../SDL3/android-project/app/libs/arm64-v8a/
 cd ..
 ```
 
-### 2. Build the Android APK
+### 2. Package the Signed Release APK
 
 ```bash
 cd SDL3/android-project
 ./gradlew assembleRelease
 ```
 
-The signed release APK will be generated at:
-`SDL3/android-project/app/build/outputs/apk/release/app-release.apk`
+The compiled, signed release APK is output to:
+```
+SDL3/android-project/app/build/outputs/apk/release/app-release.apk
+```
 
-## License & Credits
+---
 
-- Ported to Android by **XHYN-PH**.
-- Original game developed by Brainbox Games and published by Groove Games (2005).
-- Powered by Unreal Engine 2 by Epic Games.
-- SDL3 and sdl2-compat by libsdl-org.
-- FFmpeg by the FFmpeg team.
-- C recompilation base inspired by `lotd-webport` by un4ckn0wl3z.
+## Credits & Acknowledgements
+
+- **Port Author**: Developed and maintained by **XHYN-PH**.
+- **Original Game**: *Land of the Dead: Road to Fiddler's Green* developed by Brainbox Games, published by Groove Games (2005).
+- **Game Engine**: Unreal Engine 2 by Epic Games.
+- **Runtime & Platform Layers**: SDL3 and `sdl2-compat` by libsdl-org.
+- **Video Decoding**: FFmpeg project.
+- **C Recompilation Base**: Built on the open-source decompilation foundation of `lotd-webport` by un4ckn0wl3z.
