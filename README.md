@@ -147,6 +147,15 @@ The official release keystore and signing credentials are provided in the [keys/
 
 ---
 
+## Additional Documentation
+
+- **[Frequently Asked Questions & Troubleshooting (FAQ.md)](FAQ.md)**: Common setup questions, troubleshooting crash logs, and gamepad configuration.
+- **[UnrealScript Development & Modding Guide (MODDING.md)](MODDING.md)**: Instructions for editing, compiling, and deploying `.uc` packages and custom maps.
+- **[Community Release Signing Keys (keys/README.md)](keys/README.md)**: Public keystore credentials and instructions for compiling compatible signed community updates.
+- **[Legal Notice & Fair Use Disclaimer (LEGAL.md)](LEGAL.md)**: Trademark acknowledgements and fair-use educational interoperability statement.
+
+---
+
 ## Credits & Acknowledgements
 
 - **Port Author**: Developed and maintained by **XHYN-PH**.
