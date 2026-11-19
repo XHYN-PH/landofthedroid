@@ -8,6 +8,24 @@
   <strong>Native 64-bit ARM Android Port of <em>Land of the Dead: Road to Fiddler's Green</em> (Unreal Engine 2)</strong>
 </p>
 
+<p align="center">
+  <a href="https://github.com/XHYN-PH/landofthedroid/actions/workflows/build.yml">
+    <img src="https://github.com/XHYN-PH/landofthedroid/actions/workflows/build.yml/badge.svg" alt="CI Build Status" />
+  </a>
+  <a href="https://github.com/XHYN-PH/landofthedroid/releases/latest">
+    <img src="https://img.shields.io/github/v/release/XHYN-PH/landofthedroid?color=brightgreen&label=Release" alt="Latest Release" />
+  </a>
+  <a href="https://github.com/XHYN-PH/landofthedroid/releases/latest">
+    <img src="https://img.shields.io/badge/APK%20Size-~36%20MB-informational.svg" alt="APK Size" />
+  </a>
+  <img src="https://img.shields.io/badge/Platform-Android%207.0%2B-green.svg" alt="Platform" />
+  <img src="https://img.shields.io/badge/Architecture-ARM64--v8a-blue.svg" alt="Architecture" />
+  <img src="https://img.shields.io/badge/Graphics-OpenGL%20ES%203.0-orange.svg" alt="Graphics" />
+  <a href="LEGAL.md">
+    <img src="https://img.shields.io/badge/License-MIT%20%2F%20Fair%20Use-lightgrey.svg" alt="License" />
+  </a>
+</p>
+
 ---
 
 ## Overview
@@ -149,6 +167,7 @@ The official release keystore and signing credentials are provided in the [keys/
 
 ## Additional Documentation
 
+- **[Project Development Roadmap (ROADMAP.md)](ROADMAP.md)**: Development phases, completed milestones, active objectives, and upcoming features.
 - **[Frequently Asked Questions & Troubleshooting (FAQ.md)](FAQ.md)**: Common setup questions, troubleshooting crash logs, and gamepad configuration.
 - **[UnrealScript Development & Modding Guide (MODDING.md)](MODDING.md)**: Instructions for editing, compiling, and deploying `.uc` packages and custom maps.
 - **[Community Release Signing Keys (keys/README.md)](keys/README.md)**: Public keystore credentials and instructions for compiling compatible signed community updates.
