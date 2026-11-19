@@ -141,6 +141,10 @@ The compiled, signed release APK is output to:
 SDL3/android-project/app/build/outputs/apk/release/app-release.apk
 ```
 
+### Community Maintenance & Release Signing
+
+The official release keystore and signing credentials are provided in the [keys/](keys/) directory (`keys/lotd-release.keystore`). Community developers, modders, and maintainers can compile and sign update APKs with matching cryptographic signatures, allowing users to install community builds directly over previous releases without signature conflicts or losing save data. Details and fingerprints are documented in [keys/README.md](keys/README.md).
+
 ---
 
 ## Credits & Acknowledgements
